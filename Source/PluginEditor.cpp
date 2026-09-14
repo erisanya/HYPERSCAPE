@@ -143,7 +143,7 @@ HyperScapeAudioProcessorEditor::HyperScapeAudioProcessorEditor(HyperScapeAudioPr
 
     subtitle.setText("by erisa", juce::dontSendNotification);
     subtitle.setFont(juce::Font(juce::FontOptions(12.0f)).withTypefaceStyle("Regular"));
-    subtitle.setColour(juce::Label::textColourId, juce::Colour(0xffb79fce));
+    subtitle.setColour(juce::Label::textColourId, juce::Colour(0xffd8c4ec));
     subtitle.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(subtitle);
 
@@ -222,7 +222,7 @@ void HyperScapeAudioProcessorEditor::resized()
     title.setBounds(top.removeFromTop(30));
     subtitle.setBounds(top.removeFromTop(14));
 
-    ledCentre = { static_cast<float>(b.getCentreX()), static_cast<float>(b.getY()) + 4.0f };
+    ledCentre = { static_cast<float>(b.getCentreX()), static_cast<float>(b.getY()) + 16.0f };
     b.removeFromTop(10);
 
     constexpr int knobSize = 170;

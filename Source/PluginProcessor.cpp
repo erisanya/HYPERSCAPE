@@ -22,7 +22,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout HyperScapeAudioProcessor::cr
     // it's silent, at 100% it's as loud as the effect gets, up to 4x).
     // Kept the param id "amount" for continuity; the knob is labelled MIX.
     p.push_back(std::make_unique<juce::AudioParameterFloat>(
-        "amount", "Mix", juce::NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.0f));
+        "amount", "Mix", juce::NormalisableRange<float>(0.0f, 1.0f, 0.001f), 0.0f,
+        juce::AudioParameterFloatAttributes()
+            .withStringFromValueFunction([](float value, int) { return juce::String(juce::roundToInt(value * 100.0f)); })
+            .withValueFromStringFunction([](const juce::String& text) { return text.getFloatValue() / 100.0f; })));
 
     return { p.begin(), p.end() };
 }
