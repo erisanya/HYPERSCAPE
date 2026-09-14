@@ -1,7 +1,6 @@
 # HYPER SCAPE
 
-<img width="250" height="340" alt="image" src="https://github.com/user-attachments/assets/d3b72759-68a3-4021-b36f-01ee40b1ded4" />
-
+<img width="250" height="340" alt="image" src="https://github.com/user-attachments/assets/da1892f2-9a7e-448e-b2e8-f71351d2d7f4" />
 
 Vocal stereo widening / octave-up hyper layer
 
