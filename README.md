@@ -21,47 +21,40 @@ As you turn it up:
 
 This is intentionally more "effect" than a clinical utility widener.
 
-## Build
+## Requirements
 
-Requirements:
-- CMake 3.32+ (needed for the Visual Studio 2026 generator)
-- Visual Studio 2026 with Desktop development with C++
-- Git
-- Internet access for the first configure/build because JUCE is fetched automatically
+- CMake (3.22+)
+- Git (needed so CMake can fetch JUCE automatically)
+- Visual Studio Community (with the "Desktop development with C++" workload)
 
-From this folder, in Developer PowerShell for VS 2026:
+## Building on Windows
 
-cmake -B build -G "Visual Studio 18 2026" -A x64
+1. Unzip this project.
+2. Open the **Developer PowerShell for VS** (Start menu → your Visual Studio version)
+3. Run:
+
+```powershell
+cd C:\*YOUR-PATH*
+cmake -B build
 cmake --build build --config Release
-(Visual Studio 2026 is internally versioned "18" — that's why the generator string says 18, not 2026. If you're on an older CMake without 2026 support, or just want CMake to auto-detect whichever VS you have installed, you can also omit the -G flag entirely: cmake -B build.)
+```
 
-The VST3 and Standalone targets are copied after build.
+The first build will take a while — CMake's `FetchContent` downloads JUCE itself
+the first time. After that, rebuilds are much faster.
 
-Typical output:
-build/HYPER_SCAPE_artefacts/Release/VST3/HYPER SCAPE.vst3
+**Tip:** if you hit an out-of-memory / heap error mid-build (like on HYPER SCAPE),
+try building again — sometimes it's just a low-memory moment — and consider
+closing other heavy apps (browser, DAW) while it compiles, since MSVC can be
+memory-hungry compiling JUCE's GUI code.
 
-## FL Studio
+## Output location
 
-Copy/install the VST3 into a folder scanned by FL Studio, or let the build's copied VST3 be available in your plugin path.
+After a successful build:
 
-Then:
-1. FL Studio -> Options -> Manage plugins
-2. Verify the VST3 search path
-3. Find HYPER SCAPE
-4. Put it on a vocal insert
-5. Start low and turn HYPER upward
+- VST3: `build\HYPER_SCAPE_artefacts\Release\VST3\HYPER SCAPE.vst3`
+- Standalone app: `build\HYPER_SCAPE_artefacts\Release\Standalone\HYPER SCAPE.exe`
 
-## Important DSP note
-
-The octave-up engine here is a compact, self-contained grain shifter designed to avoid extra dependencies. It is not intended to compete with a commercial phase-vocoder/pitch-shifter for artifact-free +12 semitone processing. The surrounding widening/saturation design is deliberately musical.
-
-## Suggested product identity
-
-Name: HYPER SCAPE
-Tagline: VOCAL STEREO // HYPER WIDTH
-
-Visual direction:
-- dark purple analog rack chassis
-- violet backlit controls
-- vintage screws and panel lines
-- one hero knob (HYPER, shown as a 0-100% readout), no other controls
+Copy the `.vst3` into your DAW's VST3 folder (usually
+`C:\Program Files\Common Files\VST3`) if it isn't picked up automatically —
+`COPY_PLUGIN_AFTER_BUILD` is already set in `CMakeLists.txt` so this normally
+happens for you.
